@@ -39,8 +39,7 @@ router.post('/topic/add', (req, res)=>{
             res.status(500).send("Internal Server Error")
         }
         console.log(result)
-        res.send(redial)
-        //res.send("<h1>Sucess</h1>")
+        res.send("<h1>Sucess</h1>")
     })
 })
 
