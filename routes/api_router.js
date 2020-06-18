@@ -1,7 +1,6 @@
 var express = require('express')
 var mysql = require('mysql')
-const { config } = require('process')
-
+//const { config } = require('process')
 var router = express.Router()
 
 sql_config = {
@@ -39,7 +38,7 @@ router.post('/topic/add', (req, res)=>{
             res.status(500).send("Internal Server Error")
         }
         console.log(result)
-        res.send("<h1>Sucess</h1>")
+    //    res.send("<h1>Sucess</h1>")
     })
 })
 router.get('/topic/edit/:id',(req, res)=>{
@@ -76,6 +75,12 @@ router.post('/topic/:id/edit', (req, res)=>{
     //console.log(title, description, autho)
     //res.send(title)
 
+})
+
+router.get('/topic/delete/:delid', (req, res)=>{
+    var delid = req.params.delid
+    console.log(delid)
+    res.send("deletw succese")
 })
 
 
