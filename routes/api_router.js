@@ -43,4 +43,40 @@ router.post('/topic/add', (req, res)=>{
     })
 })
 
+router.get(['/topic','/topic/:id'] , (req, res)=>{
+    var sql = 'SELECT * FROM topic'
+    db.query(sql, (err, results)=>{
+        var id = req.params.id
+        //var name = req.query.name
+        //console.log(name)
+        if(id){
+              //var sql ='SELECT * FROM topic WHERE id=${id}'
+            var sql ='SELECT * FROM topic WHERE id=${id}'
+            console.log(id)
+            db.query(sql, (err, result)=>{
+                if(err) {
+                console.log(err)
+    }
+    //console.log(result[0])
+    res.render('view',{topics:results,topic:result[0] })
+})
+    }    else {
+        res.render('view',{topics:results,topic:undefined})    
+    }
+    console.log(id)
+    })
+    
+    //var id = req.params.id
+    //var sql = SELECT * FROM topic WHERE id='+id
+    //var sql ='SELECT * FROM topic WHERE id=${id}'
+   // db.query(sql,(err , result)=>{
+     //   if(err) {
+       //     console.log(err)
+   // }
+   // res.send(result)
+//})
+  //  console.log(id)
+})
+
+
 module.exports = router
