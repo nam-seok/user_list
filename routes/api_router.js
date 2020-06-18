@@ -42,6 +42,21 @@ router.post('/topic/add', (req, res)=>{
         res.send("<h1>Sucess</h1>")
     })
 })
+router.get('/topic/edit/:id',(req, res)=>{
+    var id = req.params.id
+    var sql = 'SELECT * FROM topic WHERE id=${id}'
+    db.query(sql,(err,result)=>{
+        if(err){
+            console.log(err)
+            res.status(500).send("Internal server Error")
+        }
+        console.log(result)
+        //console.log("테스트:" +id)
+        res.render("edit", {topic:result[0]})
+    })
+    
+})
+
 
 router.get(['/topic','/topic/:id'] , (req, res)=>{
     var sql = 'SELECT * FROM topic'
