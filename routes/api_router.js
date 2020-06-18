@@ -44,8 +44,8 @@ router.post('/topic/add', (req, res)=>{
 })
 router.get('/topic/edit/:id',(req, res)=>{
     var id = req.params.id
-    var sql = 'SELECT * FROM topic WHERE id=${id}'
-    db.query(sql,(err,result)=>{
+    var sql = `SELECT * FROM topic WHERE id=${id}`
+    db.query(sql, (err,result)=>{
         if(err){
             console.log(err)
             res.status(500).send("Internal server Error")
@@ -57,6 +57,27 @@ router.get('/topic/edit/:id',(req, res)=>{
     
 })
 
+router.post('/topic/:id/edit', (req, res)=>{
+    var id = req.params.id
+    var title = req.body.title
+    var description = req.body.description
+    var author = req.body.author
+    var sql = `UPDATE topic SET title= ?, description= ? , author= ? WHERE id= ${id}`
+    var upData = [title,description,author]
+        db.query(sql,upData, (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.status(500).send("Internal Long time Error")
+            }
+            console.log(title, description, autho)
+            res.redirect('/topic')
+        })
+
+    //console.log(title, description, autho)
+    //res.send(title)
+
+})
+
 
 router.get(['/topic','/topic/:id'] , (req, res)=>{
     var sql = 'SELECT * FROM topic'
@@ -66,19 +87,19 @@ router.get(['/topic','/topic/:id'] , (req, res)=>{
         //console.log(name)
         if(id){
               //var sql ='SELECT * FROM topic WHERE id=${id}'
-            var sql ='SELECT * FROM topic WHERE id=${id}'
+            var sql =`SELECT * FROM topic WHERE id=${id}`
             console.log(id)
             db.query(sql, (err, result)=>{
                 if(err) {
                 console.log(err)
     }
     //console.log(result[0])
-    res.render('view',{topics:results,topic:result[0] })
+    res.render('view',{topics:results, topic:result[0] })
 })
     }    else {
-        res.render('view',{topics:results,topic:undefined})    
+        res.render('view',{topics:results, topic:undefined})    
     }
-    console.log(id)
+    //console.log(id)
     })
     
     //var id = req.params.id
